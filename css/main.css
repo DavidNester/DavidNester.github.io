@@ -41,3 +41,11 @@ ul.posts {
 ul.posts li {
     list-style: none;
 }
+img {
+    vertical-align: middle;
+    margin:5px;
+    padding:5px;
+}
+h3 {
+	display: inline;
+}
