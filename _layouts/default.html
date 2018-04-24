@@ -1,28 +1,23 @@
-<!DOCTYPE html>
-	<html>
-		<head>
-			<title>{{ page.title }}</title>
-			<!-- link to main stylesheet -->
-			<link rel="stylesheet" type="text/css" href="/css/main.css">
-		</head>
-		<body>
-			<nav>
-	    		<ul>
-				<li><b>David Nester</b></li>
-	        		<li><a href="/">Home</a></li>
-		        	<li><a href="/about">About</a></li>
-	    		</ul>
-			</nav>
-			<div class="container">
-			
-			{{ content }}
-			
-			</div><!-- /.container -->
-			<footer>
-	    		<ul>
-	        		<li><a href="mailto:14nesterd@gmail.com">email</a></li>
-	        		<li><a href="https://github.com/davidnester">github.com/davidnester</a></li>
-				</ul>
-			</footer>
-		</body>
-	</html>
+---
+layout: master
+---
+<body>
+	<nav>
+		<ul>
+		<li><b>David Nester</b></li>
+    		<li><a href="/">Home</a></li>
+        	<li><a href="/about">About</a></li>
+		</ul>
+	</nav>
+	<div class="container">
+	
+	{{ content }}
+	
+	</div><!-- /.container -->
+	<footer>
+		<ul>
+    		<li><a href="mailto:14nesterd@gmail.com">email</a></li>
+    		<li><a href="https://github.com/davidnester">github.com/davidnester</a></li>
+		</ul>
+	</footer>
+</body>
