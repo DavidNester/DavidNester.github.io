@@ -19,9 +19,9 @@ title: SportStreamer
 
 <script type="text/javascript">
 
-function message(text) {
-	alert(text); 
-}
+var getUrl = window.location;
+var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+
 //Sport Buttons
 var sports_list = ["Soccer", "NFL", "NBA", "College Football", "College Basketball", "MLB", "NHL"];
 var sports = document.getElementById('sports');
@@ -30,6 +30,15 @@ for (i = 0; i < sports_list.length; i++) {
 	text += "<li><button onclick='getGames(\"https://www.reddit.com/r/soccerstreams\")'>" + sports_list[i] + "</button></li>"
 }
 sports.innerHTML = text;
+
+function makeRedditLink(link) {
+	console.log(link)
+	var newLink = link.slice(baseUrl.length)
+	console.log(newLink)
+	newlink = 'https://www.reddit.com' + newLink
+	console.log(newLink)
+	return newLink
+}
 
 function makeHttpObject() {
   try {return new XMLHttpRequest();}
@@ -48,7 +57,7 @@ function getGames(url) {
 	request.send(null);
 	request.onreadystatechange = function() {
 	if (request.readyState == 4){
-		alert('HTML ACQUIRED');
+		//alert('HTML ACQUIRED');
 		parseGames(request.responseText);
 	}
 	};
@@ -59,15 +68,15 @@ function parseGames(html) {
 	doc.innerHTML = rawHTML;
 	var links = doc.getElementsByClassName('title may-blank')
 	var urls = [];
-	alert(links.length);
+	//alert(links.length);
 	for (var i=0, max=links.length; i<max; i++) {
 	if (/\d/.test(links[i].text)){
-    urls.push(links[i].href);
+    urls.push(makeRedditLink(links[i].href));
     }
 	}
-	makeSportButtons(urls);
+	makeGameButtons(urls);
 }
-function makeSportButtons(urls) {
+function makeGameButtons(urls) {
 	var games = document.getElementById('games');
 	text = ""
 	for (i = 0; i < urls.length; i++) {
@@ -78,12 +87,14 @@ function getLinks(url){
 	request.open("GET", url, true);
 	request.send(null);
 	request.onreadystatechange = function() {
-  if (request.readyState == 4)
-    alert('HTML ACQUIRED');
-    parseLinks(request.responseText);
-};
+		if (request.readyState == 4){
+    		alert('HTML ACQUIRED');
+    		parseLinks(request.responseText);
+    	}
+    };
 }
 function parseLinks(html) {
+	//need to adjust filtering to get game links
 	var rawHTML = html
 	var doc = document.createElement("html");
 	doc.innerHTML = rawHTML;
@@ -95,7 +106,14 @@ function parseLinks(html) {
     urls.push(links[i].href);
     }
 	}
-	makeSportButtons(urls);
+	makeLinkButtons(urls);
+}
+function makeLinkButtons(urls) {
+	var links = document.getElementById('games');
+	text = ""
+	for (i = 0; i < urls.length; i++) {
+	text += "<li><button>" + urls[i] + "</button></li>"
+}	links.innerHTML = text;
 }
 //request.responseText
 //https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi/related?hl=en-US
