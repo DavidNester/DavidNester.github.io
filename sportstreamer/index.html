@@ -3,20 +3,22 @@ layout: sportstreamer
 title: SportStreamer
 ---
 
-<em>You will need <a href="https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi/related?hl=en-US" target="_blank">this chrome extension</a> in order for this site to work</em>
+<h2><em>You will need <a href="https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi/related?hl=en-US" target="_blank">this chrome extension</a> in order for this site to work</em></h2>
 <div class="blurb" style="background-color:slategrey">
-<nav style="background-color:lightblue">
+<nav style="background-color:#43cd80">
 	<ul id="sports">
 	</ul>
 </nav>
-<nav style="background-color:green">
+<nav style="background-color:#6ca6cd">
 	<ul id="games">
 	</ul>
 </nav>
-<nav style="background-color:blue">
-	<ul id="links">
+<div style="background-color:#228b22">
+	<ul id="links" float="left" display="inline-block">
 	</ul>
-</nav>
+	<ul id="ace" float="left" display="inline-block">
+	</ul>
+</div>
 </div>
 
 <script type="text/javascript">
@@ -25,11 +27,12 @@ var getUrl = window.location;
 var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" //+ getUrl.pathname.split('/')[1];
 
 //Sport Buttons
-var sports_list = ["Soccer", "NFL", "NBA", "College Football", "College Basketball", "MLB", "NHL"];
+var sports_list = ["Soccer", "NFL", "NBA", "College Football", "College Basketball", "MLB", "NHL", "Golf", "Cricket", "MMA"];
+var addresses = ["https://www.reddit.com/r/soccerstreams/", "https://www.reddit.com/r/nflstreams/", "https://www.reddit.com/r/nbastreams/", "https://www.reddit.com/r/CFBStreams/", "https://www.reddit.com/r/ncaaBBallStreams/", "https://www.reddit.com/r/MLBStreams/", "https://www.reddit.com/r/NHLStreams/", "https://www.reddit.com/r/PuttStreams/", "https://www.reddit.com/r/cricket_streams/", "https://www.reddit.com/r/MMAStreams/"]
 var sports = document.getElementById('sports');
 var text = "";
 for (i = 0; i < sports_list.length; i++) {
-	text += "<li><button onclick='getGames(\"https://www.reddit.com/r/soccerstreams\")'>" + sports_list[i] + "</button></li>"
+	text += "<li><button onclick='getGames(\"" + addresses[i] + "\")'>" + sports_list[i] + "</button></li>"
 }
 sports.innerHTML = text;
 
@@ -52,16 +55,19 @@ function makeHttpObject() {
 var request = makeHttpObject();
 
 function getGames(url) {
+	var links = document.getElementById('links');
+	text = ""
+	links.innerHTML = text
 	var games = document.getElementById('games');
 	text = "<center>...Getting Games...</center>"
 	games.innerHTML = text
 	request.open("GET", url, true);
 	request.send(null);
 	request.onreadystatechange = function() {
-	if (request.readyState == 4){
-		//alert('HTML ACQUIRED');
-		parseGames(request.responseText);
-	}
+		if (request.readyState == 4){
+			//alert('HTML ACQUIRED');
+			parseGames(request.responseText);
+		}
 	};
 }
 function parseGames(html) {
@@ -72,9 +78,9 @@ function parseGames(html) {
 	var urls = [];
 	//alert(links.length);
 	for (var i=0, max=links.length; i<max; i++) {
-	if (/\d/.test(links[i].text)){
-    urls.push(makeRedditLink(links[i].href));
-    }
+		if (/\d/.test(links[i].text)){
+    		urls.push(makeRedditLink(links[i].href));
+    	}
 	}
 	makeGameButtons(urls);
 }
@@ -82,8 +88,9 @@ function makeGameButtons(urls) {
 	var games = document.getElementById('games');
 	text = ""
 	for (i = 0; i < urls.length; i++) {
-	text += "<li><button onclick='getLinks(\""+ urls[i] +"\")'>" + urls[i] + "</button></li>"
-}	games.innerHTML = text;
+		text += "<li><button onclick='getLinks(\""+ urls[i] +"\")'>" + urls[i] + "</button></li>"
+	}
+	games.innerHTML = text;
 }
 function getLinks(url){
 	var links = document.getElementById('links');
@@ -99,7 +106,8 @@ function getLinks(url){
     };
 }
 function parseLinks(html) {
-	//need to adjust filtering to get game links
+	//figure out acestreams and displaying them
+	//var re = /^acestream:\/\//
 	var rawHTML = html
 	var doc = document.createElement("html");
 	doc.innerHTML = rawHTML;
@@ -107,16 +115,16 @@ function parseLinks(html) {
 	var urls = [];
 	//alert(links.length);
 	for (var i=0, max=links.length; i<max; i++) {
-	var rel = links[i].rel;
-	//console.log(rel)
-	if (rel == "nofollow"){
-	console.log(links[i].href)
-	if (!links[i].href.includes('https://www.reddit.com/r/soccerstreams')) {
-	if (!links[i].href.includes(baseUrl)) {
-    urls.push(links[i].href);
-    }
-    }
-    }
+		var rel = links[i].rel;
+		//console.log(rel)
+		if (rel == "nofollow"){
+			console.log(links[i].href)
+			if (!links[i].href.includes('https://www.reddit.com/r/')) {
+				if (!links[i].href.includes(baseUrl)) {
+    				urls.push(links[i].href);
+    			}
+    		}
+    	}
 	}
 	console.log(urls.length)
 	makeLinkButtons(urls);
@@ -125,8 +133,9 @@ function makeLinkButtons(urls) {
 	var links = document.getElementById('links');
 	text = ""
 	for (i = 0; i < urls.length; i++) {
-	text += "<li><a href=\""+ urls[i] +"\" target=\"_blank\"><button>" + urls[i] + "</button></a></li>"
-}	links.innerHTML = text;
+		text += "<li><a href=\""+ urls[i] +"\" target=\"_blank\"><button>" + urls[i] + "</button></a></li>"
+	}
+	links.innerHTML = text;
 }
 //request.responseText
 //https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi/related?hl=en-US
