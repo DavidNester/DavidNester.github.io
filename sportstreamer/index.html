@@ -7,14 +7,16 @@ title: SportStreamer
 	<ul id="sports">
 	</ul>
 </nav>
-<button onclick="document.getElementById('myImage').src='/res/emu.png'">Turn on the light</button>
-
-<img id="myImage" src="/res/emu.png" style="width:100px">
-
-<button onclick="document.getElementById('myImage').src='/res/epic.jpg'">Turn off the light</button>
-
-
+<nav>
+	<ul id="games">
+	</ul>
+</nav>
+<nav>
+	<ul id="links">
+	</ul>
+</nav>
 </div>
+
 <script type="text/javascript">
 
 function message(text) {
@@ -25,7 +27,7 @@ var sports_list = ["Soccer", "NFL", "NBA", "College Football", "College Basketba
 var sports = document.getElementById('sports');
 var text = "";
 for (i = 0; i < sports_list.length; i++) {
-	text += "<li><button onclick='message(\""+sports_list[i]+"\")'>" + sports_list[i] + "</button></li>"
+	text += "<li><button onclick='getThatShit()'>" + sports_list[i] + "</button></li>"
 }
 sports.innerHTML = text;
 
@@ -40,11 +42,41 @@ function makeHttpObject() {
   throw new Error("Could not create HTTP request object.");
 }
 var request = makeHttpObject();
+function getThatShit() {
 request.open("GET", "https://www.reddit.com/r/soccerstreams", true);
 request.send(null);
 request.onreadystatechange = function() {
   if (request.readyState == 4)
-    alert(request.responseText);
+    alert('HTML ACQUIRED');
+    parseThatShit(request.responseText);
 };
 
+}
+function parseThatShit(html) {
+	var rawHTML = html
+	var doc = document.createElement("html");
+	doc.innerHTML = rawHTML;
+	var links = doc.getElementsByClassName('title may-blank')
+	var urls = [];
+	alert(links.length);
+	for (var i=0, max=links.length; i<max; i++) {
+	if (/\d/.test(links[i].text)){
+    urls.push(links[i].href);
+    }
+	}
+	makeSportButtons(urls);
+}
+function makeSportButtons(urls) {
+	var games = document.getElementById('games');
+	text = ""
+	for (i = 0; i < urls.length; i++) {
+	text += "<li><button onclick='getLinks(\""+ urls[i] +"\")'>" + urls[i] + "</button></li>"
+}	games.innerHTML = text;
+}
+function getLinks(url){
+	alert('get links from'+url);
+	//get the html and find all ace streams
+}
+//request.responseText
+//https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi/related?hl=en-US
 </script>
