@@ -52,6 +52,9 @@ function makeHttpObject() {
 var request = makeHttpObject();
 
 function getGames(url) {
+	var games = document.getElementById('games');
+	text = "<center>...Getting Games...</center>"
+	games.innerHTML = text
 	request.open("GET", url, true);
 	request.send(null);
 	request.onreadystatechange = function() {
@@ -83,6 +86,9 @@ function makeGameButtons(urls) {
 }	games.innerHTML = text;
 }
 function getLinks(url){
+	var links = document.getElementById('links');
+	text = "<center>...Getting Links...</center>"
+	links.innerHTML = text
 	request.open("GET", url, true);
 	request.send(null);
 	request.onreadystatechange = function() {
@@ -104,7 +110,12 @@ function parseLinks(html) {
 	var rel = links[i].rel;
 	//console.log(rel)
 	if (rel == "nofollow"){
+	console.log(links[i].href)
+	if (!links[i].href.includes('https://www.reddit.com/r/soccerstreams')) {
+	if (!links[i].href.includes(baseUrl)) {
     urls.push(links[i].href);
+    }
+    }
     }
 	}
 	console.log(urls.length)
