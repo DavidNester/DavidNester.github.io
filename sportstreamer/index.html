@@ -2,16 +2,16 @@
 layout: default
 title: SportStreamer
 ---
-<div class="blurb">
-<nav>
+<div class="blurb" style="background-color:slategrey">
+<nav style="background-color:lightblue">
 	<ul id="sports">
 	</ul>
 </nav>
-<nav>
+<nav style="background-color:green">
 	<ul id="games">
 	</ul>
 </nav>
-<nav>
+<nav style="background-color:blue">
 	<ul id="links">
 	</ul>
 </nav>
@@ -27,7 +27,7 @@ var sports_list = ["Soccer", "NFL", "NBA", "College Football", "College Basketba
 var sports = document.getElementById('sports');
 var text = "";
 for (i = 0; i < sports_list.length; i++) {
-	text += "<li><button onclick='getThatShit()'>" + sports_list[i] + "</button></li>"
+	text += "<li><button onclick='getGames(\"https://www.reddit.com/r/soccerstreams\")'>" + sports_list[i] + "</button></li>"
 }
 sports.innerHTML = text;
 
@@ -42,17 +42,18 @@ function makeHttpObject() {
   throw new Error("Could not create HTTP request object.");
 }
 var request = makeHttpObject();
-function getThatShit() {
-request.open("GET", "https://www.reddit.com/r/soccerstreams", true);
-request.send(null);
-request.onreadystatechange = function() {
-  if (request.readyState == 4)
-    alert('HTML ACQUIRED');
-    parseThatShit(request.responseText);
-};
 
+function getGames(url) {
+	request.open("GET", url, true);
+	request.send(null);
+	request.onreadystatechange = function() {
+	if (request.readyState == 4){
+		alert('HTML ACQUIRED');
+		parseGames(request.responseText);
+	}
+	};
 }
-function parseThatShit(html) {
+function parseGames(html) {
 	var rawHTML = html
 	var doc = document.createElement("html");
 	doc.innerHTML = rawHTML;
@@ -74,8 +75,27 @@ function makeSportButtons(urls) {
 }	games.innerHTML = text;
 }
 function getLinks(url){
-	alert('get links from'+url);
-	//get the html and find all ace streams
+	request.open("GET", url, true);
+	request.send(null);
+	request.onreadystatechange = function() {
+  if (request.readyState == 4)
+    alert('HTML ACQUIRED');
+    parseLinks(request.responseText);
+};
+}
+function parseLinks(html) {
+	var rawHTML = html
+	var doc = document.createElement("html");
+	doc.innerHTML = rawHTML;
+	var links = doc.getElementsByTagName('a')
+	var urls = [];
+	alert(links.length);
+	for (var i=0, max=links.length; i<max; i++) {
+	if (/\d/.test(links[i].text)){
+    urls.push(links[i].href);
+    }
+	}
+	makeSportButtons(urls);
 }
 //request.responseText
 //https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi/related?hl=en-US
