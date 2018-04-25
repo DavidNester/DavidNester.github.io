@@ -18,7 +18,7 @@ title: SportStreamer
 <script type="text/javascript">
 
 function message(text) {
-	alert(text);
+	alert(text); 
 }
 //Sport Buttons
 var sports_list = ["Soccer", "NFL", "NBA", "College Football", "College Basketball", "MLB", "NHL"];
@@ -28,4 +28,23 @@ for (i = 0; i < sports_list.length; i++) {
 	text += "<li><button onclick='message(\""+sports_list[i]+"\")'>" + sports_list[i] + "</button></li>"
 }
 sports.innerHTML = text;
+
+function makeHttpObject() {
+  try {return new XMLHttpRequest();}
+  catch (error) {}
+  try {return new ActiveXObject("Msxml2.XMLHTTP");}
+  catch (error) {}
+  try {return new ActiveXObject("Microsoft.XMLHTTP");}
+  catch (error) {}
+
+  throw new Error("Could not create HTTP request object.");
+}
+var request = makeHttpObject();
+request.open("GET", "https://www.reddit.com/r/soccerstreams", true);
+request.send(null);
+request.onreadystatechange = function() {
+  if (request.readyState == 4)
+    alert(request.responseText);
+};
+
 </script>
