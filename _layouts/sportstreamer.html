@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+	<html>
+		<head>
+			<title>{{ page.title }}</title>
+			<link rel="stylesheet" type="text/css" href="/css/main.css">
+			{% if site.google_analytics and jekyll.environment == 'production' %}
+			{% include analytics.html %}
+			{% endif %}
+			<link rel="icon" href="/res/sportstreamer/logo.png">
+		</head>
+<body>
+	<nav>
+		<ul>
+		<li><img src="/res/sportstreamer/logo.png" height="75" width="75"><li>
+		<li><b>SportStreamer</b></li>
+    		<li><a href="/sportstreamer">Home</a></li>
+		</ul>
+	</nav>
+	<div class="container">
+	
+	{{ content }}
+	
+	</div><!-- /.container -->
+	<footer>
+		<ul>
+    		<li><a href="mailto:14nesterd@gmail.com">email</a></li>
+    		<li><a href="https://github.com/davidnester">github.com/davidnester</a></li>
+    		<li><a href="https://davidnester.github.io">my personal site</a></li>
+    		<li>donate</li>
+		</ul>
+	</footer>
+</body>
+
+	</html>
