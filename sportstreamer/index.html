@@ -20,7 +20,7 @@ title: SportStreamer
 <script type="text/javascript">
 
 var getUrl = window.location;
-var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" //+ getUrl.pathname.split('/')[1];
 
 //Sport Buttons
 var sports_list = ["Soccer", "NFL", "NBA", "College Football", "College Basketball", "MLB", "NHL"];
@@ -32,12 +32,9 @@ for (i = 0; i < sports_list.length; i++) {
 sports.innerHTML = text;
 
 function makeRedditLink(link) {
-	console.log(link)
-	var newLink = link.slice(baseUrl.length)
-	console.log(newLink)
-	newlink = 'https://www.reddit.com' + newLink
-	console.log(newLink)
-	return newLink
+	var newLink = link.slice(baseUrl.length);
+	var finalLink = "https://www.reddit.com/" + newLink;
+	return finalLink;
 }
 
 function makeHttpObject() {
@@ -88,7 +85,7 @@ function getLinks(url){
 	request.send(null);
 	request.onreadystatechange = function() {
 		if (request.readyState == 4){
-    		alert('HTML ACQUIRED');
+    		//alert('HTML ACQUIRED');
     		parseLinks(request.responseText);
     	}
     };
@@ -100,19 +97,22 @@ function parseLinks(html) {
 	doc.innerHTML = rawHTML;
 	var links = doc.getElementsByTagName('a')
 	var urls = [];
-	alert(links.length);
+	//alert(links.length);
 	for (var i=0, max=links.length; i<max; i++) {
-	if (/\d/.test(links[i].text)){
+	var rel = links[i].rel;
+	//console.log(rel)
+	if (rel == "nofollow"){
     urls.push(links[i].href);
     }
 	}
+	console.log(urls.length)
 	makeLinkButtons(urls);
 }
 function makeLinkButtons(urls) {
-	var links = document.getElementById('games');
+	var links = document.getElementById('links');
 	text = ""
 	for (i = 0; i < urls.length; i++) {
-	text += "<li><button>" + urls[i] + "</button></li>"
+	text += "<li><a href=\""+ urls[i] +"\"><button>" + urls[i] + "</button></a></li>"
 }	links.innerHTML = text;
 }
 //request.responseText
