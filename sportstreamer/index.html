@@ -1,0 +1,31 @@
+---
+layout: default
+title: SportStreamer
+---
+<div class="blurb">
+<nav>
+	<ul id="sports">
+	</ul>
+</nav>
+<button onclick="document.getElementById('myImage').src='/res/emu.png'">Turn on the light</button>
+
+<img id="myImage" src="/res/emu.png" style="width:100px">
+
+<button onclick="document.getElementById('myImage').src='/res/epic.jpg'">Turn off the light</button>
+
+
+</div>
+<script type="text/javascript">
+
+function message(text) {
+	alert(text);
+}
+//Sport Buttons
+var sports_list = ["Soccer", "NFL", "NBA", "College Football", "College Basketball", "MLB", "NHL"];
+var sports = document.getElementById('sports');
+var text = "";
+for (i = 0; i < sports_list.length; i++) {
+	text += "<li><button onclick='message(\""+sports_list[i]+"\")'>" + sports_list[i] + "</button></li>"
+}
+sports.innerHTML = text;
+</script>
