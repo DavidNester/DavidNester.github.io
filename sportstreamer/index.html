@@ -112,7 +112,7 @@ function makeLinkButtons(urls) {
 	var links = document.getElementById('links');
 	text = ""
 	for (i = 0; i < urls.length; i++) {
-	text += "<li><a href=\""+ urls[i] +"\"><button>" + urls[i] + "</button></a></li>"
+	text += "<li><a href=\""+ urls[i] +"\" target=\"_blank\"><button>" + urls[i] + "</button></a></li>"
 }	links.innerHTML = text;
 }
 //request.responseText
