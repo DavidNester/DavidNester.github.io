@@ -80,6 +80,7 @@ function parseGames(html) {
 	for (var i=0, max=links.length; i<max; i++) {
 		if (/\d/.test(links[i].text)){
     		urls.push(makeRedditLink(links[i].href));
+    		urls.push(links[i].text)
     	}
 	}
 	makeGameButtons(urls);
@@ -87,8 +88,8 @@ function parseGames(html) {
 function makeGameButtons(urls) {
 	var games = document.getElementById('games');
 	text = ""
-	for (i = 0; i < urls.length; i++) {
-		text += "<li><button onclick='getLinks(\""+ urls[i] +"\")'>" + urls[i] + "</button></li>"
+	for (i = 0; i < urls.length; i += 2) {
+		text += "<li><button onclick='getLinks(\""+ urls[i] +"\")'>" + urls[i+1] + "</button></li>"
 	}
 	games.innerHTML = text;
 }
@@ -107,7 +108,9 @@ function getLinks(url){
 }
 function parseLinks(html) {
 	//figure out acestreams and displaying them
-	//var re = /^acestream:\/\//
+	var re = /\bacestream:\/\/[-a-zA-Z0-9]*\b/g 
+	///:\/\[-a-zA-Z0-9]*\b/g
+	var acestreams = re.exec(html)
 	var rawHTML = html
 	var doc = document.createElement("html");
 	doc.innerHTML = rawHTML;
@@ -127,15 +130,26 @@ function parseLinks(html) {
     	}
 	}
 	console.log(urls.length)
-	makeLinkButtons(urls);
+	makeLinkButtons(urls, acestreams);
 }
-function makeLinkButtons(urls) {
+function makeLinkButtons(urls, aces) {
 	var links = document.getElementById('links');
 	text = ""
 	for (i = 0; i < urls.length; i++) {
 		text += "<li><a href=\""+ urls[i] +"\" target=\"_blank\"><button>" + urls[i] + "</button></a></li>"
 	}
 	links.innerHTML = text;
+	var acestreams = document.getElementById('ace');
+	text = ""
+	for (i = 0; i < aces.length; i++) {
+		text += "<li><button onclick='openAce(\""+aces[i]+"\")'>" + aces[i] + "</button></li>"
+	}
+	acestreams.innerHTML = text;
+}
+function openAce(acelink) {
+	try {window.open("sodaplayer://?url=" + acelink)}
+	catch {alert('copied to clipboard')}
+	
 }
 //request.responseText
 //https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi/related?hl=en-US
