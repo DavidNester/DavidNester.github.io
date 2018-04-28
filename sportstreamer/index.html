@@ -56,8 +56,9 @@ var request = makeHttpObject();
 
 function getGames(url) {
 	var links = document.getElementById('links');
-	text = ""
-	links.innerHTML = text
+	links.innerHTML = ""
+	var aces = document.getElementById('ace');
+	aces.innerHTML = "";
 	var games = document.getElementById('games');
 	text = "<center>...Getting Games...</center>"
 	games.innerHTML = text
@@ -106,11 +107,25 @@ function getLinks(url){
     	}
     };
 }
+function acestreams(htmlDoc) {
+	var possible = htmlDoc.getElementsByTagName('code')
+	var acestreams = new Array()
+	var re = /\bacestream:\/\/[-a-zA-Z0-9]*/g 
+	for (var i=0; i < possible.length; i++) {
+		acestreams.push(possible[i].innerText)
+	}
+	possible = htmlDoc.getElementsByTagName('p')
+	for (var i=0; i < possible.length; i++) {
+		if (re.test(possible[i].innerText)) {
+			acestreams.push(re.exec(possible[i].innerText))
+		}
+	}
+	console.log(acestreams)
+	return acestreams
+}
 function parseLinks(html) {
 	//figure out acestreams and displaying them
-	var re = /\bacestream:\/\/[-a-zA-Z0-9]*\b/g 
-	///:\/\[-a-zA-Z0-9]*\b/g
-	var acestreams = re.exec(html)
+	
 	var rawHTML = html
 	var doc = document.createElement("html");
 	doc.innerHTML = rawHTML;
@@ -120,8 +135,7 @@ function parseLinks(html) {
 	for (var i=0, max=links.length; i<max; i++) {
 		var rel = links[i].rel;
 		//console.log(rel)
-		if (rel == "nofollow"){
-			console.log(links[i].href)
+		if (rel == "nofollow") {
 			if (!links[i].href.includes('https://www.reddit.com/r/')) {
 				if (!links[i].href.includes(baseUrl)) {
     				urls.push(links[i].href);
@@ -130,7 +144,7 @@ function parseLinks(html) {
     	}
 	}
 	console.log(urls.length)
-	makeLinkButtons(urls, acestreams);
+	makeLinkButtons(urls, acestreams(doc));
 }
 function makeLinkButtons(urls, aces) {
 	var links = document.getElementById('links');
@@ -142,7 +156,8 @@ function makeLinkButtons(urls, aces) {
 	var acestreams = document.getElementById('ace');
 	text = ""
 	for (i = 0; i < aces.length; i++) {
-		text += "<li><button onclick='openAce(\""+aces[i]+"\")'>" + aces[i] + "</button></li>"
+		text += "<li>" + aces[i] + "</li>"
+		//text += "<li><button onclick='openAce(\""+aces[i]+"\")'>" + aces[i] + "</button></li>"
 	}
 	acestreams.innerHTML = text;
 }
