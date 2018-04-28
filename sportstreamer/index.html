@@ -32,7 +32,7 @@ var addresses = ["https://www.reddit.com/r/soccerstreams/", "https://www.reddit.
 var sports = document.getElementById('sports');
 var text = "";
 for (i = 0; i < sports_list.length; i++) {
-	text += "<li><button onclick='getGames(\"" + addresses[i] + "\")'>" + sports_list[i] + "</button></li>"
+	text += "<li><button onclick='getGames(\"" + addresses[i] + "\")' style=\"height:40px;width:69px\">" + sports_list[i] + "</button></li>"
 }
 sports.innerHTML = text;
 
@@ -90,7 +90,7 @@ function makeGameButtons(urls) {
 	var games = document.getElementById('games');
 	text = ""
 	for (i = 0; i < urls.length; i += 2) {
-		text += "<li><button onclick='getLinks(\""+ urls[i] +"\")'>" + urls[i+1] + "</button></li>"
+		text += "<li><button onclick='getLinks(\""+ urls[i] +"\")' style=\"height:30px;\">" + urls[i+1] + "</button></li>"
 	}
 	games.innerHTML = text;
 }
@@ -124,8 +124,6 @@ function acestreams(htmlDoc) {
 	return acestreams
 }
 function parseLinks(html) {
-	//figure out acestreams and displaying them
-	
 	var rawHTML = html
 	var doc = document.createElement("html");
 	doc.innerHTML = rawHTML;
@@ -138,7 +136,12 @@ function parseLinks(html) {
 		if (rel == "nofollow") {
 			if (!links[i].href.includes('https://www.reddit.com/r/')) {
 				if (!links[i].href.includes(baseUrl)) {
-    				urls.push(links[i].href);
+					if (links[i].href.length > 120) {
+						urls.push(links[i].hostname);
+					}
+					else {
+	    				urls.push(links[i].href);
+	    			}
     			}
     		}
     	}
@@ -156,7 +159,7 @@ function makeLinkButtons(urls, aces) {
 	var acestreams = document.getElementById('ace');
 	text = ""
 	for (i = 0; i < aces.length; i++) {
-		text += "<li>" + aces[i] + "</li>"
+		text += "<li style=\"background-color:#E6E6E6\">" + aces[i] + "</li>"
 		//text += "<li><button onclick='openAce(\""+aces[i]+"\")'>" + aces[i] + "</button></li>"
 	}
 	acestreams.innerHTML = text;
