@@ -92,6 +92,12 @@ function makeGameButtons(urls) {
 	for (i = 0; i < urls.length; i += 2) {
 		text += "<li><button onclick='getLinks(\""+ urls[i] +"\")' style=\"height:30px;\">" + urls[i+1] + "</button></li>"
 	}
+	if (text == "") {
+		text = "<li>No Games Found? Try these:</li>\n" + 
+				"<li>Make sure the<a href=\"https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi/related?hl=en-US\">chrome extension</a> is installed <b>and ON (green)</b></li>" +
+		        "<li>Click the button again (sometimes it doesn't work the first time)</li>" +
+		        "<li>Make sure that there are in fact games scheduled for that sport</li>"
+	}
 	games.innerHTML = text;
 }
 function getLinks(url){
