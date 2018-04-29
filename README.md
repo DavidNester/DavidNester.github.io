@@ -2,8 +2,8 @@
 My personal website
 
 Parts:
-*[SportStreamer](https://davidnester.github.io/sportstreamer)
+* [SportStreamer](https://davidnester.github.io/sportstreamer)
 
-*[Bike Trip Blog](https://davidnester.github.io/biketrip)
+* [Bike Trip Blog](https://davidnester.github.io/biketrip)
 
-*[Resume](https://davidnester.github.io/resume)
+* [Resume](https://davidnester.github.io/resume)
