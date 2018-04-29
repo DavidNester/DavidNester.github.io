@@ -55,3 +55,7 @@ td#t01 {
 td#t02 {
 	width: 100px;
 }
+@font-face {
+    font-family: sportsnight;
+    src: url(sportsnight.ttf);
+}
