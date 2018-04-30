@@ -1,6 +1,10 @@
 body {
     margin: 60px auto;
     width: 70%;
+    height: 100%;
+}
+html {
+	height: 100%;
 }
 nav ul, footer ul {
     font-family:'Helvetica', 'Arial', 'Sans-Serif';
@@ -29,7 +33,7 @@ p {
     color: #333;
 }
 footer {
-    border-top: 1px solid #d5d5d5;
+    border-top: 2px solid #d5d5d5;
     font-size: .8em;
 }
 
@@ -65,3 +69,70 @@ button.sports {
 	height:40px;
 	vertical-align: top;
 }
+#gamesandlinks {
+	overflow: hidden;
+	display: flex;
+}
+#games button {
+	width: 100%;
+}
+#games {
+	float: left;
+}
+#gameswrapper {
+	float: left;
+	overflow: hidden;
+	background-color:#6ca6cd;
+	width:33%;
+	height:100%;
+	margin-bottom: -1000px;
+    padding-bottom: 1000px;
+}
+#links {
+	float: left;
+	overflow: hidden;
+	background-color:#228b22;
+	width:67%;
+	height:100%;
+	margin-bottom: -1000px;
+    padding-bottom: 1000px;
+}
+#web button {
+	width: 100%;
+	padding: 5px;
+}
+#web li {
+	padding: 3px;
+}
+#webwrapper {
+	float: left;
+	overflow: hidden;
+	width: 49.9%;
+}
+#acewrapper {
+	float: left;
+	overflow: hidden;
+	width: 49.9%;
+}
+ul {
+	list-style-type: none;
+	padding: 0;
+	width: 100%;
+}
+#games ul {
+	margin: -20px 0 10px 0;
+}
+#acewrapper #webwrapper li {
+	padding: 2px;
+}
+#games li {
+	padding: 5px;
+}
+.fontedheader {
+	font-family: sportsnight;
+}
+button:hover {
+	color:#fff!important;
+	background-color:#000!important;
+}
+
