@@ -1,0 +1,154 @@
+body {
+    margin: 60px auto;
+    width: 95%;
+    height: 100%;
+    min-height: 100%;
+}
+html {
+	height: 100%;
+}
+nav ul, footer ul {
+    font-family:'Helvetica', 'Arial', 'Sans-Serif';
+    padding: 0px;
+    list-style: none;
+    font-weight: bold;
+}
+nav ul li, footer ul li {
+    display: inline;
+    margin-right: 20px;
+}
+a {
+    text-decoration: none;
+    color: #999;
+}
+a:hover {
+    text-decoration: underline;
+}
+h1 {
+    font-size: 3em;
+    font-family:'Helvetica', 'Arial', 'Sans-Serif';
+}
+p {
+    font-size: 1.5em;
+    line-height: 1.4em;
+    color: #333;
+}
+footer {
+    border-top: 5px solid #000000;
+    font-size: .8em;
+    margin: 50px 0 0 0;
+    
+}
+
+ul.posts { 
+    margin: 20px auto 40px; 
+    font-size: 1.5em;
+}
+
+ul.posts li {
+    list-style: none;
+}
+img {
+    vertical-align: middle;
+    margin:5px;
+}
+h3 {
+	display: inline;
+}
+@font-face {
+    font-family: sportsnight;
+    src: url(sportsnight.ttf);
+}
+#topmenu {
+	border-bottom: 5px solid #000000;
+}
+#sportswrapper {
+	display: inline-flex;
+	justify-content: space-around;
+	width: 100%;
+	background-color:#43cd80;
+}
+#sports {
+	width: 100%;
+	padding: 5px;
+}
+button.sports {
+	font-family: sportsnight;
+	font-size: 150%;
+	height:60px;
+	vertical-align: top;
+	padding: 12px;
+}
+#gamesandlinks {
+	overflow: hidden;
+	display: flex;
+}
+#games button {
+	width: 100%;
+	font-size: 80%;
+}
+#games {
+	float: left;
+}
+#gameswrapper {
+	float: left;
+	overflow: hidden;
+	background-color:#6ca6cd;
+	width:33%;
+	height:100%;
+	margin-bottom: -1000px;
+    padding-bottom: 1000px;
+}
+#links {
+	float: left;
+	overflow: hidden;
+	background-color:#228b22;
+	width:67%;
+	height:100%;
+	margin-bottom: -1000px;
+    padding-bottom: 1000px;
+}
+#web button {
+	width: 100%;
+	padding: 5px;
+}
+#web li {
+	padding: 3px;
+}
+#webwrapper {
+	float: left;
+	overflow: hidden;
+	width: 49.9%;
+}
+#acewrapper {
+	float: left;
+	overflow: hidden;
+	width: 49.9%;
+}
+ul {
+	list-style-type: none;
+	padding: 0;
+	width: 100%;
+}
+#games ul {
+	margin: -20px 0 10px 0;
+}
+#acewrapper #webwrapper li {
+	padding: 2px;
+}
+#games li {
+	padding: 5px;
+}
+.fontedheader {
+	font-family: sportsnight;
+	margin-top: 20px;
+}
+button:hover {
+	color:#fff!important;
+	background-color:#000!important;
+}
+#mainlink {
+	font-family:sportsnight;
+	font-size: 160%;
+	color: #000000
+}

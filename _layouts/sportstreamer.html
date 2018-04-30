@@ -2,18 +2,20 @@
 	<html>
 		<head>
 			<title>{{ page.title }}</title>
-			<link rel="stylesheet" type="text/css" href="/css/main.css">
+			<link rel="stylesheet" type="text/css" href="/css/sportstreamer.css">
+			
 			{% if site.google_analytics and jekyll.environment == 'production' %}
 			{% include analytics.html %}
 			{% endif %}
 			<link rel="icon" href="/res/sportstreamer/logo.png">
 		</head>
 <body>
-	<nav>
+	<nav id="topmenu">
 		<ul>
 			<a href="https://davidnester.github.io/sportstreamer">
 			<li><img src="/res/sportstreamer/logo.png" height="75" width="75"><li>
-    		<li><b style="font-family:sportsnight">SportStreamer</b></li></a>
+    		<li id="mainlink"><b>SportStreamer</b></li></a>
+    		<li><a href="https://davidnester.github.io/sportstreamer/about">about</a></li>
     		<li><a href="https://davidnester.github.io/sportstreamer/donate">donate</a></li>
 		</ul>
 	</nav>
