@@ -3,3 +3,6 @@ markdown: kramdown
 
 #Google Analytics
 google_analytics: UA-118157172-1
+
+plugins:
+  - jekyll-sitemap
