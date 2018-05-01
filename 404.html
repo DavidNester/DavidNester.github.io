@@ -4,7 +4,7 @@ title: index.html
 ---
 <center>
 <h1>...404 not found...</h1>
-<img src='/res/404.gif'>
+<img id='image'>
 
 <h1>Return to:</h1>
 <h2><a href="https:/davidnester.github.io">My Main Page</a></h2>
@@ -12,3 +12,8 @@ title: index.html
 <h2><a href="https:/davidnester.github.io/biketrip">My Bike Trip Blog</a></h2>
 
 </center>
+
+<script>
+var img = document.getElementById('image')
+document['image'].src = "/res/404-" + (Math.floor(Math.random()*3)+1) + .gif
+</script>
