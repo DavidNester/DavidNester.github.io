@@ -135,7 +135,7 @@ ul {
 	margin: -20px 0 10px 0;
 }
 #acewrapper #webwrapper li {
-	padding: 2px;
+	margin: 3;
 }
 #games li {
 	padding: 5px;
@@ -154,6 +154,32 @@ button:hover {
 }
 #ace li {
 	background-color:#E6E6E6;
-	word-wrap:break-word;
-	padding: 5px;
+	margin: 5px;
+	height: 25px;
+}
+button.sodaplayer {
+	background-image: url("/res/sportstreamer/sodaplayer.png");
+	width: 20px;
+	height: 20px;
+	background-size: cover;
+	background-color: #eee;
+	float: right;
+	display: inline;
+	vertical-align: center;
+}
+span.address {
+	-webkit-user-select: all;  /* Chrome all / Safari all */
+	-moz-user-select: all;     /* Firefox all */
+	-ms-user-select: all;      /* IE 10+ */	
+	user-select: all;          /* Likely future */ 
+	font-size: 10%;
+	display: inline;
+}
+	display: inline;
+}
+div.acecontainer {
+	float: right;
+	overflow-x: scroll;
+	width: 90%;
+	white-space: nowrap;
 }

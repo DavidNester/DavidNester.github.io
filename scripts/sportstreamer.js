@@ -101,12 +101,20 @@ function acestreams(html) {
 	//get all links
 	var ace = new Array()
 	var myArray;
-	var re = /\bacestream:\/\/[-a-zA-Z0-9 \[\]]*[^$]/g 
+	var re = /\bacestream:\/\/[-a-zA-Z0-9 \[\]]*[^$<]/g 
 	while ((myArray = re.exec(html)) !== null) {
 		ace.push(myArray[0])
 	}
 	var acestreams = new Set(ace)
-	return ace
+	var allData = Array.from(acestreams)
+	var linkAndData = new Array()
+	var newRe = /\bacestream:\/\/[-a-zA-Z0-9 \[\]]*/g 
+	for (i=0; i < allData.length; i++) {
+		total = allData[i].split(" ")
+		linkAndData.push(total[0])
+		linkAndData.push(total.splice(1,total.length).join(" "))
+	}
+	return linkAndData
 }
 function parseLinks(html) {
 	var rawHTML = html
@@ -148,9 +156,11 @@ function makeLinkButtons(urls, aces) {
 	links.innerHTML = text;
 	var acestreams = document.getElementById('ace');
 	text = ""
-	for (i = 0; i < aces.length; i++) {
-		text += "<li>" + aces[i] + "</li>"
-		//text += "<li><button onclick='openAce(\""+aces[i]+"\")'>" + aces[i] + "</button></li>"
+	for (i = 0; i < aces.length; i+=2) {
+		if (aces[i+1] == "") {
+			aces[i+1] = "No Data"
+		}
+		text += "<li><div class=\"acecontainer\"><span class=\"desc\">"+aces[i+1]+" </span><span class=\"address\">"+aces[i]+"</span></div><button title=\"Open in SodaPlayer\" class=\"sodaplayer\" onclick=\"openAce('"+aces[i]+"')\"></button></li>"
 	}
 	acestreams.innerHTML = text;
 }
@@ -159,3 +169,13 @@ function openAce(acelink) {
 	catch {alert('Error opening SodaPlayer')}
 	
 }
+function copy(that){
+	var inp = document.createElement('input');
+	document.body.appendChild(inp)
+	inp.value = that.textContent
+	inp.select();
+	document.execCommand('copy',false);
+	inp.remove();
+}
+
+getLinks('https://www.reddit.com/r/soccerstreams/comments/8g9w5m/1845_gmt_real_madrid_vs_bayern_m%C3%BCnchen/')
