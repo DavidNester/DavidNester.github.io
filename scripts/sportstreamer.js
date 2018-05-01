@@ -177,5 +177,3 @@ function copy(that){
 	document.execCommand('copy',false);
 	inp.remove();
 }
-
-getLinks('https://www.reddit.com/r/soccerstreams/comments/8g9w5m/1845_gmt_real_madrid_vs_bayern_m%C3%BCnchen/')

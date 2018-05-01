@@ -175,6 +175,8 @@ span.address {
 	font-size: 10%;
 	display: inline;
 }
+span.desc {
+	font-size: 80%;
 	display: inline;
 }
 div.acecontainer {
