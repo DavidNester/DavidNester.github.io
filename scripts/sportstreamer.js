@@ -14,6 +14,7 @@ for (i = 0; i < sports_list.length; i++) {
 sports.innerHTML = text;
 
 function makeRedditLink(link) {
+	//turns relative reddit url into full url
 	var newLink = link.slice(baseUrl.length);
 	var finalLink = "https://www.reddit.com/" + newLink;
 	return finalLink;
@@ -32,6 +33,8 @@ function makeHttpObject() {
 var request = makeHttpObject();
 
 function getGames(url) {
+	//scrapes games from forum page
+	//makes naive assumption that games have number in post title
 	forum = url
 	var links = document.getElementById('web');
 	links.innerHTML = ""
@@ -50,6 +53,7 @@ function getGames(url) {
 	};
 }
 function parseGames(html) {
+	//parses html from forum page
 	var rawHTML = html
 	var doc = document.createElement("html");
 	doc.innerHTML = rawHTML;
@@ -65,6 +69,7 @@ function parseGames(html) {
 	makeGameButtons(urls);
 }
 function makeGameButtons(urls) {
+	//makes game buttons from results of scraping
 	var games = document.getElementById('games');
 	text = ""
 	for (i = 0; i < urls.length; i += 2) {
@@ -75,11 +80,12 @@ function makeGameButtons(urls) {
 				"<li>Make sure <a style=\"color:black;\"href=\"https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi/related?hl=en-US\"><u>extension</u></a> is installed and <b>ON</b></li>" +
 		        "<li>Click the button again</li>" +
 		        "<li>Make sure games are scheduled</li>"+
-		        "<li><a style=\"color:black;\" href=\""+ forum +"\"><u>Go to forum</u></a></li></center>"
+		        "<li><a target= \"_blank\" style=\"color:black;\" href=\""+ forum +"\"><u>Go to forum</u></a></li></center>"
 	}
 	games.innerHTML = text;
 }
 function getLinks(url){
+	//scrape links from post
 	game = url;
 	var links = document.getElementById('web');
 	text = "<center>...Getting Links...</center>"
@@ -88,26 +94,20 @@ function getLinks(url){
 	request.send(null);
 	request.onreadystatechange = function() {
 		if (request.readyState == 4){
-    		//alert('HTML ACQUIRED');
     		parseLinks(request.responseText);
     	}
     };
 }
-function acestreams(htmlDoc) {
-	var possible = htmlDoc.getElementsByTagName('code')
-	var acestreams = new Array()
-	var re = /\bacestream:\/\/[-a-zA-Z0-9]*/g 
-	for (var i=0; i < possible.length; i++) {
-		acestreams.push(possible[i].innerHTML)
+function acestreams(html) {
+	//get all links
+	var ace = new Array()
+	var myArray;
+	var re = /\bacestream:\/\/[-a-zA-Z0-9 \[\]]*[^$]/g 
+	while ((myArray = re.exec(html)) !== null) {
+		ace.push(myArray[0])
 	}
-	possible = htmlDoc.getElementsByTagName('p')
-	for (var i=0; i < possible.length; i++) {
-		if (re.test(possible[i].innerHTML)) {
-			acestreams.push(re.exec(possible[i].innerHTML))
-		}
-	}
-	console.log(acestreams)
-	return acestreams
+	var acestreams = new Set(ace)
+	return ace
 }
 function parseLinks(html) {
 	var rawHTML = html
@@ -132,8 +132,7 @@ function parseLinks(html) {
     		}
     	}
 	}
-	console.log(urls.length)
-	makeLinkButtons(urls, acestreams(doc));
+	makeLinkButtons(urls, acestreams(html));
 }
 function makeLinkButtons(urls, aces) {
 	var links = document.getElementById('web');
@@ -145,19 +144,19 @@ function makeLinkButtons(urls, aces) {
 		text = "<center><li><b>No Links Found? Try these:</b></li>\n" + 
 		        "<li>Click the button again</li>" +
 		        "<li>Make sure games are scheduled</li>"+
-		        "<li><a style=\"color:black;\" href=\""+ game +"\"><u>Go to post</u></a></li></center>"
+		        "<li><a target= \"_blank\" style=\"color:black;\" href=\""+ game +"\"><u>Go to post</u></a></li></center>"
 	}
 	links.innerHTML = text;
 	var acestreams = document.getElementById('ace');
 	text = ""
 	for (i = 0; i < aces.length; i++) {
-		text += "<li style=\"background-color:#E6E6E6\">" + aces[i] + "</li>"
+		text += "<li>" + aces[i] + "</li>"
 		//text += "<li><button onclick='openAce(\""+aces[i]+"\")'>" + aces[i] + "</button></li>"
 	}
 	acestreams.innerHTML = text;
 }
 function openAce(acelink) {
-	try {window.open("sodaplayer://?url=" + acelink)}
-	catch {alert('copied to clipboard')}
+	try {window.location.href = "sodaplayer://?url=" + acelink}
+	catch {alert('Error opening SodaPlayer')}
 	
 }

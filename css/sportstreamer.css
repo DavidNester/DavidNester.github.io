@@ -82,6 +82,7 @@ button.sports {
 #gamesandlinks {
 	overflow: hidden;
 	display: flex;
+	padding: 10px;
 }
 #games button {
 	width: 100%;
@@ -141,7 +142,6 @@ ul {
 }
 .fontedheader {
 	font-family: sportsnight;
-	margin-top: 20px;
 }
 button:hover {
 	color:#fff!important;
@@ -151,4 +151,9 @@ button:hover {
 	font-family:sportsnight;
 	font-size: 160%;
 	color: #000000
+}
+#ace li {
+	background-color:#E6E6E6;
+	word-wrap:break-word;
+	padding: 5px;
 }
