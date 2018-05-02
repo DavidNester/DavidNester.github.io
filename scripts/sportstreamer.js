@@ -21,7 +21,7 @@ function makeRedditLink(link) {
 
 function makeHttpObject() {
   try {return new XMLHttpRequest();}
-  catch (error) {}
+  catch (error) {console.log("error with XHTTP request")}
   try {return new ActiveXObject("Msxml2.XMLHTTP");}
   catch (error) {}
   try {return new ActiveXObject("Microsoft.XMLHTTP");}
@@ -30,6 +30,7 @@ function makeHttpObject() {
   throw new Error("Could not create HTTP request object.");
 }
 var request = makeHttpObject();
+request.onerror = function() {alert("Make sure extension is installed and ON")}
 
 function getGames(url) {
 	//scrapes games from forum page
