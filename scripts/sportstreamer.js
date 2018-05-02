@@ -72,7 +72,7 @@ function makeGameButtons(urls) {
 	var games = document.getElementById('games');
 	text = ""
 	for (i = 0; i < urls.length; i += 2) {
-		text += "<li><button onclick='getLinks(\""+ urls[i] +"\")' style=\"height:30px;\">" + urls[i+1] + "</button></li>"
+		text += "<li><button onclick='getLinks(\""+ urls[i] +"\")' style=\"height:40px;\">" + urls[i+1] + "</button></li>"
 	}
 	if (text == "") {
 		text = "<center><li><b>No Games Found? Try these:</b></li>\n" + 
@@ -98,17 +98,17 @@ function getLinks(url){
     };
 }
 function acestreams(html) {
-	//get all links
+	//get all acestreams
 	var ace = new Array()
 	var myArray;
-	var re = /\bacestream:\/\/[-a-zA-Z0-9 \[\]]*[^$<]/g 
+	var re = /\bacestream:\/\/[-a-zA-Z0-9 \[\]]*[^$<]/g
+	//sometimes comes before...
 	while ((myArray = re.exec(html)) !== null) {
 		ace.push(myArray[0])
 	}
 	var acestreams = new Set(ace)
 	var allData = Array.from(acestreams)
 	var linkAndData = new Array()
-	var newRe = /\bacestream:\/\/[-a-zA-Z0-9 \[\]]*/g 
 	for (i=0; i < allData.length; i++) {
 		total = allData[i].split(" ")
 		linkAndData.push(total[0])
@@ -160,6 +160,7 @@ function makeLinkButtons(urls, aces) {
 		if (aces[i+1] == "") {
 			aces[i+1] = "No Data"
 		}
+		aces[i] = aces[i].replace(/(\r\n|\n|\r)/gm,"");
 		text += "<li><div class=\"acecontainer\"><span class=\"desc\">"+aces[i+1]+" </span><span class=\"address\">"+aces[i]+"</span></div><button title=\"Open in SodaPlayer\" class=\"sodaplayer\" onclick=\"openAce('"+aces[i]+"')\"></button></li>"
 	}
 	acestreams.innerHTML = text;
