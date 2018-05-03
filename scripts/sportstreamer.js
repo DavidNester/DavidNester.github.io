@@ -5,6 +5,7 @@ var game = "";
 //Sport Buttons
 var sports_list = ["Soccer", "NFL", "NBA", "NCAA FB", "NCAA BB", "MLB", "NHL", "Golf", "Cricket", "MMA"];
 var addresses = ["https://old.reddit.com/r/soccerstreams/", "https://old.reddit.com/r/nflstreams/", "https://old.reddit.com/r/nbastreams/", "https://old.reddit.com/r/CFBStreams/", "https://old.reddit.com/r/ncaaBBallStreams/", "https://old.reddit.com/r/MLBStreams/", "https://old.reddit.com/r/NHLStreams/", "https://old.reddit.com/r/PuttStreams/", "https://old.reddit.com/r/cricket_streams/", "https://old.reddit.com/r/MMAStreams/"]
+var norm_addresses = ["https://www.reddit.com/r/soccerstreams/", "https://www.reddit.com/r/nflstreams/", "https://www.reddit.com/r/nbastreams/", "https://www.reddit.com/r/CFBStreams/", "https://www.reddit.com/r/ncaaBBallStreams/", "https://www.reddit.com/r/MLBStreams/", "https://www.reddit.com/r/NHLStreams/", "https://www.reddit.com/r/PuttStreams/", "https://www.reddit.com/r/cricket_streams/", "https://www.reddit.com/r/MMAStreams/"]
 var sports = document.getElementById('sports');
 var text = "";
 for (i = 0; i < sports_list.length; i++) {
@@ -150,7 +151,7 @@ function makeLinkButtons(urls, aces) {
 	}
 	if (text == "") {
 		text = "<center><li><b>No Links Found</b></li>\n" + 
-		        "<li><a target= \"_blank\" style=\"color:black;\" href=\""+ game +"\"><u>Go to post</u></a></li></center>"
+		        "<li><a target= \"_blank\" style=\"color:black;\" href=\""+ forum +"\"><u>Go to forum</u></a></li></center>"
 	}
 	links.innerHTML = text;
 	var acestreams = document.getElementById('ace');
