@@ -76,9 +76,7 @@ function makeGameButtons(urls) {
 		text += "<li><button onclick='getLinks(\""+ urls[i] +"\")' style=\"height:40px;\">" + urls[i+1] + "</button></li>"
 	}
 	if (text == "") {
-		text = "<center><li><b>No Games Found? Try these:</b></li>\n" + 
-				"<li>Make sure <a style=\"color:black;\"href=\"https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi/related?hl=en-US\"><u>extension</u></a> is installed and <b>ON</b></li>" +
-		        "<li>Click the button again</li>" +
+		text = "<center><li><b>No Games Found?</b></li>\n" + 
 		        "<li>Make sure games are scheduled</li>"+
 		        "<li><a target= \"_blank\" style=\"color:black;\" href=\""+ forum +"\"><u>Go to forum</u></a></li></center>"
 	}
@@ -129,12 +127,14 @@ function parseLinks(html) {
 		//console.log(rel)
 		if (rel == "nofollow") {
 			if (!links[i].href.includes('https://www.reddit.com/r/')) {
-				if (!links[i].href.includes(baseUrl)) {
-					if (links[i].href.length > 100) {
-						urls.push(links[i].hostname);
-					}
-					else {
-	    				urls.push(links[i].href);
+				if (!links[i].href.includes('https://old.reddit.com/r/')) {
+					if (!links[i].href.includes(baseUrl)) {
+						if (links[i].href.length > 100) {
+							urls.push(links[i].hostname);
+						}
+						else {
+	    					urls.push(links[i].href);
+	    				}
 	    			}
     			}
     		}
@@ -149,9 +149,7 @@ function makeLinkButtons(urls, aces) {
 		text += "<li><a href=\""+ urls[i] +"\" target=\"_blank\"><button>" + urls[i] + "</button></a></li>"
 	}
 	if (text == "") {
-		text = "<center><li><b>No Links Found? Try these:</b></li>\n" + 
-		        "<li>Click the button again</li>" +
-		        "<li>Make sure games are scheduled</li>"+
+		text = "<center><li><b>No Links Found</b></li>\n" + 
 		        "<li><a target= \"_blank\" style=\"color:black;\" href=\""+ game +"\"><u>Go to post</u></a></li></center>"
 	}
 	links.innerHTML = text;
