@@ -4,7 +4,7 @@ var forum = "";
 var game = "";
 //Sport Buttons
 var sports_list = ["Soccer", "NFL", "NBA", "NCAA FB", "NCAA BB", "MLB", "NHL", "Golf", "Cricket", "MMA"];
-var addresses = ["https://www.reddit.com/r/soccerstreams/", "https://www.reddit.com/r/nflstreams/", "https://www.reddit.com/r/nbastreams/", "https://www.reddit.com/r/CFBStreams/", "https://www.reddit.com/r/ncaaBBallStreams/", "https://www.reddit.com/r/MLBStreams/", "https://www.reddit.com/r/NHLStreams/", "https://www.reddit.com/r/PuttStreams/", "https://www.reddit.com/r/cricket_streams/", "https://www.reddit.com/r/MMAStreams/"]
+var addresses = ["https://old.reddit.com/r/soccerstreams/", "https://old.reddit.com/r/nflstreams/", "https://old.reddit.com/r/nbastreams/", "https://old.reddit.com/r/CFBStreams/", "https://old.reddit.com/r/ncaaBBallStreams/", "https://old.reddit.com/r/MLBStreams/", "https://old.reddit.com/r/NHLStreams/", "https://old.reddit.com/r/PuttStreams/", "https://old.reddit.com/r/cricket_streams/", "https://old.reddit.com/r/MMAStreams/"]
 var sports = document.getElementById('sports');
 var text = "";
 for (i = 0; i < sports_list.length; i++) {
@@ -15,7 +15,7 @@ sports.innerHTML = text;
 function makeRedditLink(link) {
 	//turns relative reddit url into full url
 	var newLink = link.slice(baseUrl.length);
-	var finalLink = "https://www.reddit.com/" + newLink;
+	var finalLink = "https://old.reddit.com/" + newLink;
 	return finalLink;
 }
 
