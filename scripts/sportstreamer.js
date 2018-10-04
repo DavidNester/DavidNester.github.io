@@ -37,6 +37,8 @@ function getGames(url) {
 	//scrapes games from forum page
 	//makes naive assumption that games have number in post title
 	forum = url
+	//quick dumb fix
+	url = "https://cors-anywhere.herokuapp.com/" + url;
 	var links = document.getElementById('web');
 	links.innerHTML = ""
 	var aces = document.getElementById('ace');
@@ -86,6 +88,8 @@ function makeGameButtons(urls) {
 function getLinks(url){
 	//scrape links from post
 	game = url;
+	//quick dumb fix
+	url = "https://cors-anywhere.herokuapp.com/" + url;
 	var links = document.getElementById('web');
 	text = "<center>...Getting Links...</center>"
 	links.innerHTML = text
