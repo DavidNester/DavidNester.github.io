@@ -175,30 +175,31 @@ function openAce(acelink) {
 	
 }
 function getVideo(url) {
+	//url = "http://grandmastreams.live/f/btn.php"
 	//get the video src
 	url = "https://cors-anywhere.herokuapp.com/" + url;
 	request.open("GET", url, true);
 	request.send(null);
 	request.onreadystatechange = function() {
 		if (request.readyState == 4){
-    		parseLinks(request.responseText);
+    		getIFrame(request.responseText);
     	}
     };
+}
+function getIFrame(html) {
     var doc = document.createElement("html");
-	doc.innerHTML = request.responseText;
+	doc.innerHTML = html
 	var possible = doc.getElementsByTagName('iframe');
-	for (var i=0, max=possible.length; i<max; i++) {
-		//if (possible[i].src.length > 0) {
-		//	break;
-		//}
-		console.log(possible[i].src);
-	}
+	console.log(possible);
+	var src = possible[0].src;
+	//for (var i=0, max=possible.length; i<max; i++) {
+	//	src = possible[i].src;
+	//}
     //open player
 	var container = document.getElementById('video-holder');
 	var video = document.getElementById('video');
+	video.src = src;
 	container.style.display = "block";
-	console.log(possible[i])
-	video.src = possible[i];
 }
 function copy(that){
 	var inp = document.createElement('input');
