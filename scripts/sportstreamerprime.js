@@ -198,7 +198,7 @@ function getIFrame(html) {
     //open player
 	var container = document.getElementById('video-holder');
 	var video = document.getElementById('video');
-	video.src = src;
+	video.src = "https://www.cracking.com.ar/redir/redir.php?URL="+src;
 	container.style.display = "block";
 }
 function copy(that){
