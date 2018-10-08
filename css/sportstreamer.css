@@ -101,6 +101,7 @@ button.sports {
 	height:100%;
 	margin-bottom: -1000px;
     padding-bottom: 1000px;
+    position: relative;
 }
 #games {
 	float: left;
@@ -184,4 +185,10 @@ div.acecontainer {
 	overflow-x: scroll;
 	width: 90%;
 	white-space: nowrap;
+}
+.gamelabel {
+	font-family: sportsnight;
+	position: absolute;
+	top: 0;
+	right: 0;
 }

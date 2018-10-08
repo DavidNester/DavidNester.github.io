@@ -9,7 +9,7 @@ var norm_addresses = ["https://www.reddit.com/r/soccerstreams/", "https://www.re
 var sports = document.getElementById('sports');
 var text = "";
 for (i = 0; i < sports_list.length; i++) {
-	text += "<li><button class=\"sports\" onclick='getGames(\"" + addresses[i] + "\")'>" + sports_list[i] + "</button></li>"
+	text += "<li><button class=\"sports\" onclick='getGames(\"" + addresses[i]+"\",\""+ sports_list[i] + "\")'>" + sports_list[i] + "</button></li>"
 }
 sports.innerHTML = text;
 
@@ -33,10 +33,12 @@ function makeHttpObject() {
 var request = makeHttpObject();
 request.onerror = function() {alert("Make sure extension is installed and ON")}
 
-function getGames(url) {
+function getGames(url,sport) {
 	//scrapes games from forum page
 	//makes naive assumption that games have number in post title
 	forum = url
+	var label = document.getElementById('gamelabel');
+	label.innerHTML=sport;
 	//quick dumb fix
 	url = "https://cors-anywhere.herokuapp.com/" + url;
 	var links = document.getElementById('web');
@@ -81,7 +83,7 @@ function makeGameButtons(urls) {
 	if (text == "") {
 		text = "<center><li><b>No Games Found?</b></li>\n" + 
 		        "<li>Make sure games are scheduled</li>"+
-		        "<li><a target= \"_blank\" style=\"color:black;\" href=\""+ forum +"\"><u>Go to forum</u></a></li></center>"
+		        "<li><a target= \"_blank\" style=\"color:black;\" href=\""+ forum +"\"><button>Go To Forum</button></a></li></center>"
 	}
 	games.innerHTML = text;
 }
@@ -155,7 +157,7 @@ function makeLinkButtons(urls, aces) {
 	}
 	if (text == "") {
 		text = "<center><li><b>No Links Found</b></li>\n" + 
-		        "<li><a target= \"_blank\" style=\"color:black;\" href=\""+ forum +"\"><u>Go to forum</u></a></li></center>"
+		        "<li><a target= \"_blank\" style=\"color:black;\" href=\""+ game +"\"><button>Go To Post</button></a></li></center>"
 	}
 	links.innerHTML = text;
 	var acestreams = document.getElementById('ace');
