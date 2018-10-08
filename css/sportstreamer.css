@@ -36,8 +36,6 @@ p {
 footer {
     border-top: 5px solid #000000;
     font-size: .8em;
-    margin: 50px 0 0 0;
-    
 }
 
 ul.posts { 
@@ -61,6 +59,7 @@ h3 {
 }
 #topmenu {
 	border-bottom: 5px solid #000000;
+	postition: fixed;
 }
 button:hover {
 	color:#fff!important;
