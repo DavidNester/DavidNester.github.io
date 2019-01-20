@@ -1,11 +1,18 @@
+//**************************
+//AUTHOR: DAVID NESTER
+//There is a lot of modulation that needs to happen here
+//**************************
 var getUrl = window.location;
 var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" //+ getUrl.pathname.split('/')[1];
 var forum = "";
 var game = "";
 //Sport Buttons
 var sports_list = ["Soccer", "NFL", "NBA", "NCAA FB", "NCAA BB", "MLB", "NHL", "Golf", "Cricket", "MMA"];
-var addresses = ["https://old.reddit.com/r/soccerstreams/", "https://old.reddit.com/r/nflstreams/", "https://old.reddit.com/r/nbastreams/", "https://old.reddit.com/r/CFBStreams/", "https://old.reddit.com/r/ncaaBBallStreams/", "https://old.reddit.com/r/MLBStreams/", "https://old.reddit.com/r/NHLStreams/", "https://old.reddit.com/r/PuttStreams/", "https://old.reddit.com/r/cricket_streams/", "https://old.reddit.com/r/MMAStreams/"]
-var norm_addresses = ["https://www.reddit.com/r/soccerstreams/", "https://www.reddit.com/r/nflstreams/", "https://www.reddit.com/r/nbastreams/", "https://www.reddit.com/r/CFBStreams/", "https://www.reddit.com/r/ncaaBBallStreams/", "https://www.reddit.com/r/MLBStreams/", "https://www.reddit.com/r/NHLStreams/", "https://www.reddit.com/r/PuttStreams/", "https://www.reddit.com/r/cricket_streams/", "https://www.reddit.com/r/MMAStreams/"]
+//need to make dumb fix for soccer
+//https://old.reddit.com/r/soccerstreams_pl/
+//https://www.reddit.com/r/soccerstreams_other
+var addresses = ["https://old.reddit.com/r/soccerstreams_pl/","https://old.reddit.com/r/nflstreams/","https://old.reddit.com/r/nbastreams/", "https://old.reddit.com/r/CFBStreams/", "https://old.reddit.com/r/ncaaBBallStreams/", "https://old.reddit.com/r/MLBStreams/", "https://old.reddit.com/r/NHLStreams/", "https://old.reddit.com/r/PuttStreams/", "https://old.reddit.com/r/cricket_streams/", "https://old.reddit.com/r/MMAStreams/"]
+var norm_addresses = ["https://www.reddit.com/r/soccerstreams_pl/", "https://www.reddit.com/r/nflstreams/", "https://www.reddit.com/r/nbastreams/", "https://www.reddit.com/r/CFBStreams/", "https://www.reddit.com/r/ncaaBBallStreams/", "https://www.reddit.com/r/MLBStreams/", "https://www.reddit.com/r/NHLStreams/", "https://www.reddit.com/r/PuttStreams/", "https://www.reddit.com/r/cricket_streams/", "https://www.reddit.com/r/MMAStreams/"]
 var sports = document.getElementById('sports');
 var text = "";
 for (i = 0; i < sports_list.length; i++) {
@@ -31,7 +38,7 @@ function makeHttpObject() {
   throw new Error("Could not create HTTP request object.");
 }
 var request = makeHttpObject();
-request.onerror = function() {alert("Make sure extension is installed and ON")}
+request.onerror = function() {alert("Something went wrong! Unable to get games")}
 
 function getGames(url,sport) {
 	//scrapes games from forum page
@@ -39,21 +46,44 @@ function getGames(url,sport) {
 	forum = url
 	var label = document.getElementById('gamelabel');
 	label.innerHTML=sport;
-	//quick dumb fix
+	//solves cross origin for now
 	url = "https://cors-anywhere.herokuapp.com/" + url;
 	var links = document.getElementById('web');
 	links.innerHTML = ""
 	var aces = document.getElementById('ace');
 	aces.innerHTML = "";
 	var games = document.getElementById('games');
-	text = "<center>...Getting Games...</center>"
-	games.innerHTML = text
+	games.innerHTML = "<center>...Getting Games...</center>"
 	request.open("GET", url, true);
 	request.send(null);
 	request.onreadystatechange = function() {
 		if (request.readyState == 4){
-			//alert('HTML ACQUIRED');
-			parseGames(request.responseText);
+			if (sport == "Soccer") {
+				soccerWorkaround(request.responseText);
+			}
+			else {
+				parseGames(request.responseText);
+			}
+			
+		}
+	};
+}
+function soccerWorkaround(current) {
+	request.open("GET", "https://cors-anywhere.herokuapp.com/https://old.reddit.com/r/soccerstreams_other/",true);
+	request.send(null);
+	request.onreadystatechange = function() {
+		if (request.readyState == 4) {
+			parseGames(current + request.responseText);
+		}
+	};
+}
+//not currently used but could be used when its made asynchronous
+function getHTML(url) {
+	request.open("GET", url, true);
+	request.send(null);
+	request.onreadystatechange = function() {
+		if (request.readyState == 4){
+			return request.responseText;
 		}
 	};
 }
@@ -66,9 +96,11 @@ function parseGames(html) {
 	var urls = [];
 	//alert(links.length);
 	for (var i=0, max=links.length; i<max; i++) {
-		if (/\d/.test(links[i].text)){
-    		urls.push(makeRedditLink(links[i].href));
-    		urls.push(links[i].text)
+		if (/\d/.test(links[i].text)) {
+			if (!links[i].href.includes("alb.reddit.com")) {
+				urls.push(makeRedditLink(links[i].href));
+				urls.push(links[i].text);
+			}
     	}
 	}
 	makeGameButtons(urls);
@@ -174,7 +206,6 @@ function makeLinkButtons(urls, aces) {
 function openAce(acelink) {
 	try {window.location.href = "sodaplayer://?url=" + acelink}
 	catch {alert('Error opening SodaPlayer')}
-	
 }
 function copy(that){
 	var inp = document.createElement('input');
