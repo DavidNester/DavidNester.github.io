@@ -9,9 +9,9 @@ var game = "";
 //Sport Buttons
 var sports_list = ["Soccer", "NFL", "NBA", "NCAA FB", "NCAA BB", "MLB", "NHL", "Golf", "Cricket", "MMA"];
 //need to make dumb fix for soccer
-//https://old.reddit.com/r/soccerstreams_pl/
+//https://old.reddit.com/r/SoccerStream69/
 //https://www.reddit.com/r/soccerstreams_other
-var addresses = ["https://old.reddit.com/r/soccerstreams_pl/","https://old.reddit.com/r/nflstreams/","https://old.reddit.com/r/nbastreams/", "https://old.reddit.com/r/CFBStreams/", "https://old.reddit.com/r/ncaaBBallStreams/", "https://old.reddit.com/r/MLBStreams/", "https://old.reddit.com/r/NHLStreams/", "https://old.reddit.com/r/PuttStreams/", "https://old.reddit.com/r/cricket_streams/", "https://old.reddit.com/r/MMAStreams/"]
+var addresses = ["https://old.reddit.com/r/SoccerStream69/","https://old.reddit.com/r/nflstreams/","https://old.reddit.com/r/nbastreams/", "https://old.reddit.com/r/CFBStreams/", "https://old.reddit.com/r/ncaaBBallStreams/", "https://old.reddit.com/r/MLBStreams/", "https://old.reddit.com/r/NHLStreams/", "https://old.reddit.com/r/PuttStreams/", "https://old.reddit.com/r/cricket_streams/", "https://old.reddit.com/r/MMAStreams/"]
 var norm_addresses = ["https://www.reddit.com/r/soccerstreams_pl/", "https://www.reddit.com/r/nflstreams/", "https://www.reddit.com/r/nbastreams/", "https://www.reddit.com/r/CFBStreams/", "https://www.reddit.com/r/ncaaBBallStreams/", "https://www.reddit.com/r/MLBStreams/", "https://www.reddit.com/r/NHLStreams/", "https://www.reddit.com/r/PuttStreams/", "https://www.reddit.com/r/cricket_streams/", "https://www.reddit.com/r/MMAStreams/"]
 var sports = document.getElementById('sports');
 var text = "";
@@ -58,11 +58,7 @@ function getGames(url,sport) {
 	request.send(null);
 	request.onreadystatechange = function() {
 		if (request.readyState == 4){
-			if (sport == "Soccer") {
-				soccerWorkaround(request.responseText);
-			}
-			else {
-				parseGames(request.responseText);
+			parseGames(request.responseText)
 			}
 			
 		}
