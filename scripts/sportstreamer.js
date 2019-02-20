@@ -59,7 +59,6 @@ function getGames(url,sport) {
 	request.onreadystatechange = function() {
 		if (request.readyState == 4){
 			parseGames(request.responseText)
-			}
 			
 		}
 	};
